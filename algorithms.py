@@ -1,4 +1,7 @@
 import time
+import sys 
+  
+sys.setrecursionlimit(10**6) 
 
 def bubble_Sort(data,drawData):
     for _ in range(len(data)-1):
@@ -42,3 +45,51 @@ def insertion_Sort(data, drawData):
         time.sleep(0.04)
         
     drawData(data,['green' for x in range(len(data))])
+
+def merge(arr, l, m, r, drawData):
+    n1 = m - l + 1 
+    n2 =  r - m 
+  
+    L = arr[l:m+1]
+    R = arr[m+1:r+1]   
+
+    i = 0  
+    j = 0  
+    k = l
+    while (i < n1 and j < n2): 
+        if (L[i] <= R[j]): 
+            arr[k] = L[i] 
+            i+=1
+            drawData(arr,['green' if x==k or x==i else 'red' for x in range(len(arr))])
+            time.sleep(0.02)  
+        else: 
+            arr[k] = R[j] 
+            j+=1
+            drawData(arr,['green' if x==k or x==j else 'red' for x in range(len(arr))])
+            time.sleep(0.02)
+        k+=1
+  
+    while (i < n1): 
+        arr[k] = L[i] 
+        i+=1 
+        k+=1
+        drawData(arr,['green' if x==j or x==i else 'red' for x in range(len(arr))])
+        time.sleep(0.02) 
+  
+    while (j < n2):
+        arr[k] = R[j] 
+        j+=1 
+        k+=1
+        drawData(arr,['green' if x==j or x==i else 'red' for x in range(len(arr))])
+        time.sleep(0.02)
+
+    time.sleep(0.04)
+    drawData(arr,['green' for x in range(len(arr))])
+
+  
+def mergeSort(arr, l, r, drawData):
+    if (l < r):  
+        m = l+(r-l)//2
+        mergeSort(arr, l, m, drawData)
+        mergeSort(arr, m+1, r, drawData) 
+        merge(arr, l, m, r, drawData)
