@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter.ttk import *
 import random
-from algorithms import bubble_Sort,selection_Sort
+from algorithms import bubble_Sort,selection_Sort,insertion_Sort
 
 root = Tk()
 root.title("Sorting Algorithm Visualizer")
@@ -26,8 +26,11 @@ def startAlgo(algo):
         bubble_Sort(data,drawData)
     elif algo == "Selection Sort":
         selection_Sort(data,drawData)
+    elif algo == "Insertion Sort":
+        insertion_Sort(data,drawData)
     else:
-        selection_Sort(data,drawData)
+        insertion_Sort(data,drawData)
+        #merge_Sort(data,drawData)
 
 def select(sb):
     selected_Alg = sb['text']
@@ -65,5 +68,7 @@ btn2 = Button(frame, text = "Bubble Sort",command = lambda: select(btn2))
 btn2.grid(row=0,column=2,padx=5)
 btn3 = Button(frame, text = "Insertion Sort",command = lambda: select(btn3))
 btn3.grid(row=0,column=4,padx=5)
+#btn4 = Button(frame, text = "Merge Sort",command = lambda: select(btn4))
+#btn4.grid(row=0,column=6,padx=5)
 
 root.mainloop()

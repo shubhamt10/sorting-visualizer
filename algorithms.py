@@ -30,17 +30,15 @@ def selection_Sort(data, drawData):
 def insertion_Sort(data, drawData):
     for i in range(1, len(data)):
         j = i-1
-        while(j>=0 and data[j]>data[i]):
+        key = data[i]
+        while(j>=0 and data[j]>key):
+            data[j+1] = data[j]
             j -= 1
             drawData(data,['green' if x==j or x==i else 'red' for x in range(len(data))])
             time.sleep(0.02)
 
-        data[j+1], data[i] = data[i], data[j+1]
-        drawData(data,['green' if x==minindex or x==i else 'red' for x in range(len(data))])
+        data[j+1] = key
+        drawData(data,['green' if x==j or x==i else 'red' for x in range(len(data))])
         time.sleep(0.04)
         
     drawData(data,['green' for x in range(len(data))])
-
-
-
-    
