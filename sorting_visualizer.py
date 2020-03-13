@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter.ttk import *
 import random
-from algorithms import bubble_Sort,selection_Sort,insertion_Sort,mergeSort
+from algorithms import bubble_Sort,selection_Sort,insertion_Sort,mergeSort,quickSort
 
 root = Tk()
 root.title("Sorting Algorithm Visualizer")
@@ -11,7 +11,7 @@ root.config(bg="black")
 selected_Alg = StringVar()
 var = IntVar()
 data = []
-algos = ["Bubble Sort","Selection Sort","Insertion Sort","Merge Sort"]
+algos = ["Bubble Sort","Selection Sort","Insertion Sort","Merge Sort","Quick Sort"]
 selected_Alg = algos[0]
 
 def generateData():
@@ -33,8 +33,12 @@ def startAlgo():
         selection_Sort(data,drawData)
     elif selected_Alg == algos[2]:
         insertion_Sort(data,drawData)
-    else:
+    elif selected_Alg == algos[3]:
         mergeSort(data,0,len(data)-1,drawData)
+    else:
+        quickSort(data,0,len(data)-1,drawData)
+        drawData(data,['green' for x in range(len(data))])
+
     start_btn["state"] = "disable"
     
 
@@ -74,10 +78,12 @@ rad1 = Radiobutton(frame, text="Bubble Sort", variable = var, value = 0, command
 rad2 = Radiobutton(frame, text="Selection Sort", variable = var, value = 1, command=select)
 rad3 = Radiobutton(frame, text="Insertion Sort", variable = var, value = 2, command=select)
 rad4 = Radiobutton(frame, text="Merge Sort", variable = var, value = 3, command=select)
+rad5 = Radiobutton(frame, text="Quick Sort", variable = var, value = 4, command=select)
 rad1.grid(row=2, column=0, padx = 5)
 rad2.grid(row=2, column=1, padx = 5)
 rad3.grid(row=2, column=2, padx = 5)
 rad4.grid(row=2, column=3, padx = 5)
+rad5.grid(row=2, column=4, padx = 5)
 
 start_btn = Button(frame, text = "Start", command = startAlgo)
 start_btn.grid(row = 0,column = 2,padx = 5)

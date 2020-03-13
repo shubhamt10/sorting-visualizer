@@ -93,3 +93,25 @@ def mergeSort(arr, l, r, drawData):
         mergeSort(arr, l, m, drawData)
         mergeSort(arr, m+1, r, drawData) 
         merge(arr, l, m, r, drawData)
+
+def partition(data,l,r,drawData):
+    key = data[r]
+    j = l-1
+    i = l
+    for i in range(l,r):
+        if(data[i] < key):
+            data[j+1],data[i] = data[i],data[j+1]
+            drawData(data,['green' if x==j or x==i else 'red' for x in range(len(data))])
+            time.sleep(0.02)
+            j += 1
+
+    data[j+1],data[r] = key,data[j+1]
+    drawData(data,['green' if x==j or x==r else 'red' for x in range(len(data))])
+    time.sleep(0.02)
+    return j+1
+
+def quickSort(data,l,r,drawData):
+    if(l<r):
+        pos = partition(data,l,r,drawData)
+        quickSort(data,l,pos-1,drawData)
+        quickSort(data,pos+1,r,drawData)
