@@ -9,7 +9,10 @@ root.maxsize(1000,800)
 root.config(bg="black")
 
 selected_Alg = StringVar()
+var = IntVar()
 data = []
+algos = ["Bubble Sort","Selection Sort","Insertion Sort","Merge Sort"]
+selected_Alg = algos[0]
 
 def generateData():
     global data
@@ -18,24 +21,27 @@ def generateData():
     for _ in range(0,size):
         data.append(random.randrange(0,101))
 
-    return data
+    drawData(data, ['red' for x in range(len(data))])
+    start_btn["state"] = "normal"
 
-def startAlgo(algo):
+def startAlgo():
     global data
-    if algo == "Bubble Sort":
+    global selected_Alg
+    if selected_Alg == algos[0]:
         bubble_Sort(data,drawData)
-    elif algo == "Selection Sort":
+    elif selected_Alg == algos[1]:
         selection_Sort(data,drawData)
-    elif algo == "Insertion Sort":
+    elif selected_Alg == algos[2]:
         insertion_Sort(data,drawData)
     else:
         mergeSort(data,0,len(data)-1,drawData)
+    start_btn["state"] = "disable"
+    
 
-def select(sb):
-    selected_Alg = sb['text']
-    data = generateData()
-    drawData(data, ['red' for x in range(len(data))])
-    startAlgo(selected_Alg)
+def select():
+    global data
+    global selected_Alg
+    selected_Alg = algos[var.get()]
 
 def drawData(data,colorArray):
     canvas.delete("all")
@@ -61,13 +67,20 @@ frame.grid(row=0, column=0, padx=10, pady = 5)
 canvas = Canvas(root, width=1000, height=480)
 canvas.grid(row = 1,column = 0, padx=10, pady = 5)
 
-btn1 = Button(frame, text = "Selection Sort",command = lambda: select(btn1))
-btn1.grid(row=0,column=0,padx=5)
-btn2 = Button(frame, text = "Bubble Sort",command = lambda: select(btn2))
-btn2.grid(row=0,column=2,padx=5)
-btn3 = Button(frame, text = "Insertion Sort",command = lambda: select(btn3))
-btn3.grid(row=0,column=4,padx=5)
-btn4 = Button(frame, text = "Merge Sort",command = lambda: select(btn4))
-btn4.grid(row=0,column=6,padx=5)
+generate_btn = Button(frame, text = "Generate", command = generateData)
+generate_btn.grid(row = 0,column = 1,padx = 5)
+
+rad1 = Radiobutton(frame, text="Bubble Sort", variable = var, value = 0, command=select)
+rad2 = Radiobutton(frame, text="Selection Sort", variable = var, value = 1, command=select)
+rad3 = Radiobutton(frame, text="Insertion Sort", variable = var, value = 2, command=select)
+rad4 = Radiobutton(frame, text="Merge Sort", variable = var, value = 3, command=select)
+rad1.grid(row=2, column=0, padx = 5)
+rad2.grid(row=2, column=1, padx = 5)
+rad3.grid(row=2, column=2, padx = 5)
+rad4.grid(row=2, column=3, padx = 5)
+
+start_btn = Button(frame, text = "Start", command = startAlgo)
+start_btn.grid(row = 0,column = 2,padx = 5)
+start_btn["state"] = "disable"
 
 root.mainloop()
