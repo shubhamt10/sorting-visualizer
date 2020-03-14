@@ -1,4 +1,4 @@
-# BookFinder
+# Sorting Visualizer
 Sorting Algorithms visualizer built in Python.
 # Technologies Used
 Python
